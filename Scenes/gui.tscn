@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://drg1uin0j4m3y"]
+
+[ext_resource type="PackedScene" uid="uid://cnda05qabqhge" path="res://Scenes/player_bar.tscn" id="1_48apm"]
+[ext_resource type="Script" path="res://Scripts/gui.gd" id="1_rurwc"]
+[ext_resource type="Resource" uid="uid://b40ss63jrpk1r" path="res://Resources/Items/book.tres" id="2_g5b0i"]
+[ext_resource type="Resource" uid="uid://hqqakhvx58l0" path="res://Resources/save/playerinv.tres" id="3_d362i"]
+[ext_resource type="Script" path="res://Scenes/Inv_Button2.gd" id="4_dwg2q"]
+[ext_resource type="PackedScene" uid="uid://cgfmfwm5mqh07" path="res://Scenes/inv_ui.tscn" id="4_hj02l"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_rurwc")
+item = ExtResource("2_g5b0i")
+inv = ExtResource("3_d362i")
+
+[node name="Healthbar" parent="." instance=ExtResource("1_48apm")]
+offset_left = 22.0
+offset_top = 12.0
+offset_right = 262.0
+offset_bottom = 39.0
+scale = Vector2(0.8, 0.8)
+
+[node name="Inv_Button" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 281.0
+offset_right = 109.0
+offset_bottom = 312.0
+text = "INVENTORY"
+
+[node name="Inv_Button2" type="Button" parent="."]
+offset_left = 136.0
+offset_top = 282.0
+offset_right = 235.0
+offset_bottom = 313.0
+text = "+1 Item"
+script = ExtResource("4_dwg2q")
+
+[node name="Inv_Ui" parent="." instance=ExtResource("4_hj02l")]
+offset_left = 125.0
+offset_top = 50.0
+offset_right = 453.0
+offset_bottom = 265.0
+
+[connection signal="button_down" from="Inv_Button" to="." method="_on_inv_button_button_down"]
+[connection signal="button_up" from="Inv_Button" to="." method="_on_inv_button_button_up"]
+[connection signal="button_down" from="Inv_Button2" to="Inv_Button2" method="_on_button_down"]

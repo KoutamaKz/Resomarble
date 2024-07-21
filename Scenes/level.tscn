@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://c10g844n524l0"]
+
+[ext_resource type="Script" path="res://Scripts/save_game.gd" id="1_cut1r"]
+[ext_resource type="PackedScene" uid="uid://mxk2qxrqk88i" path="res://Scenes/map.tscn" id="1_r5ubi"]
+[ext_resource type="PackedScene" uid="uid://birmicgeiga11" path="res://Scenes/player.tscn" id="2_esfmj"]
+[ext_resource type="Resource" uid="uid://hqqakhvx58l0" path="res://Resources/save/playerinv.tres" id="2_ip5wq"]
+[ext_resource type="Resource" uid="uid://ga2sbwp40b2q" path="res://Resources/save/playerstats.tres" id="3_2fqgx"]
+[ext_resource type="PackedScene" uid="uid://lg0fk1md0sgo" path="res://Scenes/enemy.tscn" id="3_egwvy"]
+[ext_resource type="PackedScene" uid="uid://lp7w562lnbs4" path="res://Scenes/texture_progress_bar.tscn" id="4_ij278"]
+
+[node name="Level" type="Node2D"]
+light_mask = 0
+z_as_relative = false
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("1_cut1r")
+inv = ExtResource("2_ip5wq")
+stats = ExtResource("3_2fqgx")
+
+[node name="TileMap" parent="." instance=ExtResource("1_r5ubi")]
+y_sort_enabled = true
+layer_0/z_index = -1
+layer_1/y_sort_enabled = true
+layer_2/y_sort_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_esfmj")]
+y_sort_enabled = true
+position = Vector2(105, 59)
+inv = null
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(1, -2)
+zoom = Vector2(2.54, 2.54)
+
+[node name="Enemy" parent="." instance=ExtResource("3_egwvy")]
+position = Vector2(226, 186)
+
+[node name="Healthbar" parent="Enemy" instance=ExtResource("4_ij278")]
+offset_left = -33.3333
+offset_top = -36.6667
+offset_right = 206.667
+offset_bottom = -9.66666
+scale = Vector2(0.29, 0.29)

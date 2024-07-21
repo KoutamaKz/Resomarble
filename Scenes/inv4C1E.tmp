@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4uacvpyim3x5"]
+
+[ext_resource type="Texture2D" uid="uid://dsg6hacjit3qi" path="res://Assets/Pixel UI pack 3/GUI.png" id="1_lbjkp"]
+[ext_resource type="Script" path="res://Scripts/inventory.gd" id="1_yvpw3"]
+[ext_resource type="Texture2D" uid="uid://bsywrqog0fspr" path="res://icons/book_01.png" id="2_w4qry"]
+[ext_resource type="Script" path="res://Scripts/inventory_slot.gd" id="3_2ope8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaw7g"]
+atlas = ExtResource("1_lbjkp")
+region = Rect2(0, 96, 48, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxy1j"]
+texture = SubResource("AtlasTexture_iaw7g")
+
+[node name="Inventory" type="Node"]
+script = ExtResource("1_yvpw3")
+
+[node name="InventoryWindow" type="Panel" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bxy1j")
+
+[node name="SlotContainer" type="GridContainer" parent="InventoryWindow"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 185.0
+offset_top = -74.0
+offset_right = -67.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+columns = 4
+
+[node name="InventorySlot" type="Button" parent="InventoryWindow/SlotContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+script = ExtResource("3_2ope8")
+
+[node name="Icon" type="TextureRect" parent="InventoryWindow/SlotContainer/InventorySlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_w4qry")
+
+[node name="QuantityText" type="Label" parent="InventoryWindow/SlotContainer/InventorySlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="InfoText" type="Label" parent="InventoryWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -31.0
+offset_right = -6.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "some info about the selected item"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="InventoryWindow/SlotContainer/InventorySlot" to="InventoryWindow/SlotContainer/InventorySlot" method="_on_pressed"]

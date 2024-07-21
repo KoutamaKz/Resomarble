@@ -1,0 +1,209 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4uacvpyim3x5"]
+
+[ext_resource type="Texture2D" uid="uid://dsg6hacjit3qi" path="res://Assets/Pixel UI pack 3/GUI.png" id="1_lbjkp"]
+[ext_resource type="Resource" uid="uid://b40ss63jrpk1r" path="res://Resources/Items/book.tres" id="2_obknj"]
+[ext_resource type="Script" path="res://Scripts/inventory_slot.gd" id="3_2ope8"]
+
+[sub_resource type="GDScript" id="GDScript_4vv5x"]
+script/source = "class_name Inventory
+extends Node
+@export var book : Item
+var slots : Array[InventorySlot]
+@onready var window : Panel = get_node(\"InventoryWindow\")
+@onready var info_text : Label = get_node(\"InventoryWindow/InfoText\")
+@export var starter_items : Array[Item]
+
+var item_resources = {}
+var directory_path = \"res://Resources/Items\"  # Diretório que contém todos os arquivos .tres
+var dir = DirAccess.open(directory_path)
+
+func _ready ():
+	info_text.text = str(book.description)
+	toggle_window(true)
+	for child in get_node(\"InventoryWindow/SlotContainer\").get_children():
+		slots.append(child)
+		child.set_item(null)
+		child.inventory = self
+	for item in starter_items:
+		add_item(item)
+
+func _process (delta):
+	pass
+func toggle_window (open : bool):
+	window.visible = open
+	if Input.is_action_just_pressed(\"inventory\"):
+		toggle_window(!window.visible)
+
+func on_give_player_item (item : Item, amount : int):
+	pass
+func add_item (item : Item):
+	var slot = get_slot_to_add(item)
+	if slot == null:
+		return
+	if slot.item == null:
+		slot.set_item(item)
+	elif slot.item == item:
+		slot.add_item()
+func remove_item (item : Item):
+	var slot = get_slot_to_remove(item)
+
+	if slot == null or slot.item == item:
+		return
+
+	slot.remove_item()
+func get_slot_to_add (item : Item) -> InventorySlot:
+	for slot in slots:
+		if slot.item == item and slot.quantity < item.max_stack_size:
+			return slot
+  
+	for slot in slots:
+		if slot.item == null:
+			return slot
+  
+	return null
+func get_slot_to_remove (item : Item) -> InventorySlot:
+	for slot in slots:
+		if slot.item == item:
+			return slot
+  
+	return null
+func get_number_of_item (item : Item) -> int:
+	var total = 0
+  
+	for slot in slots:
+		if slot.item == item:
+			total += slot.quantity
+  
+	return total
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaw7g"]
+atlas = ExtResource("1_lbjkp")
+region = Rect2(0, 96, 48, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxy1j"]
+texture = SubResource("AtlasTexture_iaw7g")
+
+[node name="Inventory" type="Node"]
+script = SubResource("GDScript_4vv5x")
+book = ExtResource("2_obknj")
+
+[node name="InventoryWindow" type="Panel" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_bxy1j")
+
+[node name="SlotContainer" type="GridContainer" parent="InventoryWindow"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 185.0
+offset_top = -74.0
+offset_right = -67.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 16
+columns = 4
+
+[node name="InventorySlot" type="Button" parent="InventoryWindow/SlotContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+script = ExtResource("3_2ope8")
+item = ExtResource("2_obknj")
+
+[node name="Icon" type="TextureRect" parent="InventoryWindow/SlotContainer/InventorySlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="QuantityText" type="Label" parent="InventoryWindow/SlotContainer/InventorySlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="InventorySlot2" type="Button" parent="InventoryWindow/SlotContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+script = ExtResource("3_2ope8")
+item = ExtResource("2_obknj")
+
+[node name="Icon" type="TextureRect" parent="InventoryWindow/SlotContainer/InventorySlot2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="QuantityText" type="Label" parent="InventoryWindow/SlotContainer/InventorySlot2"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="InfoText" type="Label" parent="InventoryWindow"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -31.0
+offset_right = -6.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "some info about the selected item"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="InventoryWindow/SlotContainer/InventorySlot" to="InventoryWindow/SlotContainer/InventorySlot" method="_on_pressed"]
+[connection signal="pressed" from="InventoryWindow/SlotContainer/InventorySlot2" to="InventoryWindow/SlotContainer/InventorySlot2" method="_on_pressed"]

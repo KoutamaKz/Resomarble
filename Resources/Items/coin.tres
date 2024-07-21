@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://7lgw7oo1de64"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_kaiqv"]
+[ext_resource type="Texture2D" uid="uid://5ue66omt7gpd" path="res://icons/coin_01.png" id="2_at6hd"]
+
+[resource]
+script = ExtResource("1_kaiqv")
+name = "Coin"
+quantity = 1
+texture = ExtResource("2_at6hd")
+description = "A coin"
+usable = false
+stat = ""

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b4nlxma8xdoj5"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_ktt3q"]
+[ext_resource type="Texture2D" uid="uid://bqb78yuoky3cf" path="res://icons/fruit_01.png" id="2_hotc0"]
+
+[resource]
+script = ExtResource("1_ktt3q")
+name = "Apple"
+quantity = 1
+texture = ExtResource("2_hotc0")
+description = "Restores 20 HP"
+usable = true
+stat = "health"

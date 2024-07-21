@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/playerstats.gd" id="1_7lkvg"]
+
+[resource]
+script = ExtResource("1_7lkvg")
+maxlife = 200
+strength = 20
+energy = 20
+position = Vector2(124.371, 113.122)

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b1bljclhu131c"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_a57ye"]
+[ext_resource type="Texture2D" uid="uid://bx0hk35eacyie" path="res://icons/potion_01.png" id="2_spic7"]
+
+[resource]
+script = ExtResource("1_a57ye")
+name = "Small Potion"
+quantity = 1
+texture = ExtResource("2_spic7")
+description = "Give 20 Max HP"
+usable = true
+stat = "maxhealth"

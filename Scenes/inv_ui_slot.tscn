@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhhg5vrlnixqr"]
+
+[ext_resource type="Texture2D" uid="uid://dsg6hacjit3qi" path="res://Assets/Pixel UI pack 3/GUI.png" id="1_cq0ru"]
+[ext_resource type="Script" path="res://Scenes/inv_ui_slot.gd" id="1_xvoai"]
+[ext_resource type="Resource" uid="uid://hqqakhvx58l0" path="res://Resources/save/playerinv.tres" id="2_d8g6p"]
+[ext_resource type="Script" path="res://Scenes/Label2.gd" id="3_nbrc3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab7w3"]
+atlas = ExtResource("1_cq0ru")
+region = Rect2(48, 96, 32, 32)
+
+[node name="Inv_Ui_Slot" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(31, 31)
+offset_right = 31.0
+offset_bottom = 31.0
+script = ExtResource("1_xvoai")
+inv = ExtResource("2_d8g6p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ab7w3")
+centered = false
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 31.0
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="item_display" type="Sprite2D" parent="CenterContainer/Panel"]
+position = Vector2(-7, -7)
+centered = false
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 3.0
+offset_right = 29.0
+offset_bottom = 26.0
+scale = Vector2(0.8, 0.8)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "99"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="CenterContainer/Panel"]
+z_index = 1
+custom_minimum_size = Vector2(40, 23)
+layout_mode = 0
+offset_left = -17.0
+offset_top = -33.0
+offset_right = 23.0
+offset_bottom = -10.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 31.0
+flat = true
+script = ExtResource("3_nbrc3")
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

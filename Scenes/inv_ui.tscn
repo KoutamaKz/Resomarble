@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgfmfwm5mqh07"]
+
+[ext_resource type="Script" path="res://Scripts/Inv_Ui.gd" id="1_8ukhm"]
+[ext_resource type="Resource" uid="uid://ga2sbwp40b2q" path="res://Resources/save/playerstats.tres" id="2_1vf3t"]
+[ext_resource type="Texture2D" uid="uid://dsg6hacjit3qi" path="res://Assets/Pixel UI pack 3/GUI.png" id="2_wsbtr"]
+[ext_resource type="PackedScene" uid="uid://bhhg5vrlnixqr" path="res://Scenes/inv_ui_slot.tscn" id="3_arxaj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nav6m"]
+atlas = ExtResource("2_wsbtr")
+region = Rect2(0, 96, 48, 32)
+
+[node name="Inv_Ui" type="Control"]
+custom_minimum_size = Vector2(328, 215)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 328.0
+offset_bottom = 215.0
+script = ExtResource("1_8ukhm")
+stat = ExtResource("2_1vf3t")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 327.0
+offset_bottom = 213.0
+texture = SubResource("AtlasTexture_nav6m")
+
+[node name="GridContainer" type="GridContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -56.5
+offset_right = 113.0
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 13
+columns = 4
+
+[node name="Inv_Ui_Slot1" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot2" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot3" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot4" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot5" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot6" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot7" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot8" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot9" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot10" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot11" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="Inv_Ui_Slot12" parent="NinePatchRect/GridContainer" instance=ExtResource("3_arxaj")]
+layout_mode = 2
+
+[node name="InfoLabels" type="Node2D" parent="NinePatchRect"]
+
+[node name="maxlife" type="Label" parent="NinePatchRect/InfoLabels"]
+offset_left = 48.0
+offset_top = 112.0
+offset_right = 141.0
+offset_bottom = 135.0
+scale = Vector2(0.69, 0.69)
+text = "Max Health:"
+
+[node name="strength" type="Label" parent="NinePatchRect/InfoLabels"]
+offset_left = 48.0
+offset_top = 128.0
+offset_right = 141.0
+offset_bottom = 151.0
+scale = Vector2(0.69, 0.69)
+text = "Strength:"
+
+[node name="energy" type="Label" parent="NinePatchRect/InfoLabels"]
+offset_left = 48.0
+offset_top = 144.0
+offset_right = 141.0
+offset_bottom = 167.0
+scale = Vector2(0.69, 0.69)
+text = "Energy:"

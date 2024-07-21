@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwu004detosbj"]
+
+[ext_resource type="Script" path="res://Scripts/drop_controller.gd" id="1_7rui8"]
+[ext_resource type="Resource" uid="uid://b1bljclhu131c" path="res://Resources/Items/potion1.tres" id="2_7dxxl"]
+[ext_resource type="Resource" uid="uid://b4nlxma8xdoj5" path="res://Resources/Items/apple.tres" id="3_v8xgn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_43cag"]
+
+[node name="drop_controller" type="Node2D"]
+script = ExtResource("1_7rui8")
+_20 = [ExtResource("2_7dxxl")]
+_50 = [ExtResource("3_v8xgn")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="PickUpArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+shape = SubResource("CircleShape2D_43cag")
+
+[connection signal="body_entered" from="PickUpArea" to="." method="_on_pick_up_area_body_entered"]
